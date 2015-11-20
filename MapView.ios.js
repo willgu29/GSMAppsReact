@@ -9,11 +9,12 @@ var {
   MapView
 } = React;
 
+var Header = require("./Header");
 
 var BASE_URL = "localhost:3000";
 var	GET_LOCATIONS_URL = "/api/locations";
 
-var annotationsJSON = [{latitude:100,longitude:100,title:"HELLO"},{latitude:101,longitude:100,title:"HELL"}];
+var annotationsJSON = [{latitude:31,longitude:-98,title:"HELLO"},{latitude:101,longitude:100,title:"HELL"}];
 
 var MapViewiOS = React.createClass({
 
@@ -43,6 +44,7 @@ var MapViewiOS = React.createClass({
 	render: function() {
 		return(
 			<View>
+				<Header />
 				<MapView
 					style={styles.map}
 					region={this.state.mapRegion || undefined}
@@ -58,6 +60,7 @@ var MapViewiOS = React.createClass({
 
 var styles = StyleSheet.create({
   map: {
+
     height: 400,
     margin: 20,
     borderWidth: 1,

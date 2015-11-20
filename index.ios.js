@@ -10,49 +10,38 @@ var {
   StyleSheet,
   Text,
   View,
-  TabBarIOS
+  TabBarIOS,
+  Navigator
 } = React;
 
-var MapViewiOS = require('./MapView.ios');
-var SettingsPage = require("./SettingsPage");
+var Router = require("./Router");
+
 
 var iGrouply = React.createClass({
 
-  getInitialState: function() {
-    return {
-      selectedTab: 'mapView',
-      notifCount: 0,
-      presses: 0,
-    };
-  },
+  
   render: function() {
     return (
-      <TabBarIOS tintColor="white" barTintColor="purple">
 
-        <TabBarIOS.Item
-          title="mapView" 
-          selected={this.state.selectedTab === 'mapView'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'mapView',
-            });
-          }}>
-          {<MapViewiOS />}
-        </TabBarIOS.Item>
+      <Navigator
+        initialRoute={{name: "Login", index: 0}}
+        renderScene={(route, navigator) => 
+            <Router
+              name={route.name}
+              index={route.index}
+              onForward={() => {
+              var nextIndex = route.index + 1;
+              navigator.push({
+                index: nextIndex
+              });
+              }}
+              onBack={() => {
+              if (route.index > 0) {
+                navigator.pop();
+              }
+            }} />  
+        } />
 
-        <TabBarIOS.Item
-          title="settings"
-          selected={this.state.selectedTab === 'settings'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'settings',
-            });
-          }}>
-          {<SettingsPage />}
-        </TabBarIOS.Item>
-
-
-      </TabBarIOS>
 
     );
   }

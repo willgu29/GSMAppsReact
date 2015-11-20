@@ -6,33 +6,40 @@ var {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  TouchableHighlight
 } = React;
+
+
 
 var SettingsPage = React.createClass({
 	render: function() {
+
+
 		return(
 			<ScrollView
 				style={styles.scrollView}>
-				{ROWS.map(createRow)}
+				<Button text="Edit Profile" />
+				<Button text="Logout" action={this.props.onBack} />
 			</ScrollView>
 		);
 	}
 });
 
-var SettingsRow = React.createClass({
+var Button = React.createClass({
+	_onPressButton: function() {
+		this.props.action();
+	},
 	render: function() {
 		return(
-			<View style={styles.button}>
-				<Text>{this.props.text}</Text>
-			</View>
+			<TouchableHighlight onPress={this._onPressButton}>
+				<View style={styles.button}>
+					<Text>{this.props.text}</Text>
+				</View>
+			</TouchableHighlight>
 		);
 	}
-
 });
-
-var ROWS = ["Edit Profile", "Logout"];
-var createRow = (text, i) => <SettingsRow key={i} text={text} />;
 
 
 var styles = StyleSheet.create({
